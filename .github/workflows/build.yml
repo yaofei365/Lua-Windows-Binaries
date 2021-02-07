@@ -1,0 +1,30 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2019
+
+    steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          git
+          base-devel
+
+    - uses: actions/checkout@v2
+    - run: |
+        git config --global user.email "yaofei365@126.com"
+        git config --global user.name "yaofei365"
+ 
+    - name: Make
+      run: |
+        make
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: lua
+        path: ${{ github.workspace }}/lua/src/lua.exe
