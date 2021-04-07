@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     runs-on: windows-2019
-
     steps:
     - uses: msys2/setup-msys2@v2
       with:
@@ -24,7 +23,12 @@ jobs:
       run: |
         make
 
-    - uses: actions/upload-artifact@v1
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
       with:
-        name: lua
-        path: ${{ github.workspace }}/lua/src/lua.exe
+        repo_token: ${{ secrets.ACTIONS_REMOTE_BUILD_TOKEN }}
+        file: ${{ github.workspace }}/lua/src/lua.exe
+        asset_name: Lua
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "Lua"
