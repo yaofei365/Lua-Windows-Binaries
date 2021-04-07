@@ -28,7 +28,7 @@ jobs:
       with:
         repo_token: ${{ secrets.ACTIONS_REMOTE_BUILD_TOKEN }}
         file: ${{ github.workspace }}/lua/src/lua.exe
-        asset_name: Lua
+        asset_name: Lua.exe
         tag: ${{ github.ref }}
         overwrite: true
         body: "Lua"
